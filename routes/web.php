@@ -18,24 +18,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('/v1')->group(function() {
-    Route::prefix('/auth')->group(function() {
-        Route::post('/register', [AuthController::class, 'register']);
-        Route::post('/login', [AuthController::class, 'login']);
-    });
-
-    Route::middleware(['auth.api'])->group(function () {
-        Route::prefix('/book')->group(function() {
-            Route::post('/', [BookController::class, 'store']);
-            Route::get('/', [BookController::class, 'index']);
-            Route::get('/{id}', [BookController::class, 'show']);
-
-            Route::post('/{id}/review', [BookController::class, 'review']);
-            Route::post('/{id}/rating', [BookController::class, 'rating']);
+Route::middleware(['cors'])->group(function () {
+    Route::prefix('/v1')->group(function() {
+        Route::prefix('/auth')->group(function() {
+            Route::post('/register', [AuthController::class, 'register']);
+            Route::post('/login', [AuthController::class, 'login']);
         });
 
-        Route::prefix('/auth')->group(function() {
-            Route::post('/logout', [AuthController::class, 'logout']);
+        Route::middleware(['auth.api'])->group(function () {
+            Route::prefix('/book')->group(function() {
+                Route::post('/', [BookController::class, 'store']);
+                Route::get('/', [BookController::class, 'index']);
+                Route::get('/{id}', [BookController::class, 'show']);
+
+                Route::post('/{id}/review', [BookController::class, 'review']);
+                Route::post('/{id}/rating', [BookController::class, 'rating']);
+            });
+
+            Route::prefix('/auth')->group(function() {
+                Route::post('/logout', [AuthController::class, 'logout']);
+            });
         });
     });
 });
