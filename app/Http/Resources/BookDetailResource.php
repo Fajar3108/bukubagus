@@ -24,6 +24,7 @@ class BookDetailResource extends JsonResource
             'authors' => $this->authors,
             'average_rating' => collect($this->ratings)->avg('rating') ?? 0,
             'total_reviews' => collect($this->reviews)->count(),
+            'reviews' => $this->reviews,
             'total_rating' => $total_rating,
             'ratings' => [
                 'star_1' => $this->ratingPercentage($total_rating, 1),

@@ -18,7 +18,7 @@ class AuthApi
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$request->has('token')) return response()->json(['message' => 'unautorized']);
+        if (!$request->has('token')) return response()->json(['message' => 'unautorized'], 401);
 
         $token = $request->token;
         $checkToken = LoginToken::where('token', $token)->first();
