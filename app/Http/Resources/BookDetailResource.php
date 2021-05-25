@@ -17,6 +17,7 @@ class BookDetailResource extends JsonResource
         $total_rating = collect($this->ratings)->count();
 
         return [
+            'id' => $this->id,
             'title' => $this->title,
             'isbn' => $this->isbn,
             'pages' => $this->pages,
