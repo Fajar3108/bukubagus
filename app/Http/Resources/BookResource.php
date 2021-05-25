@@ -17,7 +17,6 @@ class BookResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'isbn' => $this->isbn,
             'authors' => $this->authors,
             'average_rating' => collect($this->ratings)->avg('rating') ?? 0,
         ];
